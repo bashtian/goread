@@ -255,6 +255,9 @@
 									<li><a href="#" ng-click="toggleScrollRead()">
 										mark as read on scroll <i ng-show="opts.scrollRead" class="icon-ok"></i></a>
 									</li>
+									<li><a href="#" ng-click="toggleShowRelativeDate()">
+										show relative date <i ng-show="opts.showRelativeDate" class="icon-ok"></i></a>
+									</li>
 								</ul>
 							</div>
 						</li>
@@ -454,7 +457,7 @@
 							<span class="story-summary muted" ng-click="setCurrent($index, false, true)" ng-show="s.Summary" ng-bind="'- ' + s.Summary"></span>
 						</div>
 						<div class="story-date muted visible-desktop">
-							<span ng-bind="s.dispdate" ng-click="setCurrent($index, false, true)"></span>
+							<span title="{{`{{ s.Date * 1000 | date:'medium'}}`}}" ng-bind="s.dispdate" ng-click="setCurrent($index, false, true)"></span>
 							<a ng-href="{{`{{s.Link}}`}}" target="_blank" ng-click="setCurrent($index, false, true, null, true)"><i class="icon-share-alt"></i></a>
 						</div>
 					</div>

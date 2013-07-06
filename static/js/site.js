@@ -24,7 +24,8 @@ goReadAppModule.controller('GoreadCtrl', function($scope, $http, $timeout, $wind
 		mode: 'unread',
 		sort: 'newest',
 		hideEmpty: false,
-		scrollRead: false
+		scrollRead: false,
+		showRelativeDate: false
 	};
 
 	$scope.sortableOptions = {
@@ -92,7 +93,11 @@ goReadAppModule.controller('GoreadCtrl', function($scope, $http, $timeout, $wind
 		}
 		var today = new Date().toDateString();
 		var d = new Date(story.Date * 1000);
-		story.dispdate = moment(d).format(d.toDateString() == today ? "h:mm a" : "MMM D, YYYY");
+		if ($scope.opts.showRelativeDate) {
+			story.dispdate = moment(d).fromNow();
+		} else {
+			story.dispdate = moment(d).format(d.toDateString() == today ? "h:mm a" : "MMM D, YYYY");
+		}
 	};
 
 	$scope.clear = function() {
@@ -200,6 +205,11 @@ goReadAppModule.controller('GoreadCtrl', function($scope, $http, $timeout, $wind
 		if ($scope.currentStory > 0) {
 			$scope.setCurrent($scope.currentStory - 1);
 		}
+	};
+
+	$scope.toggleShowRelativeDate = function () {
+		$scope.opts.showRelativeDate = !$scope.opts.showRelativeDate;
+		$scope.saveOpts();
 	};
 
 	$scope.toggleHideEmpty = function() {
